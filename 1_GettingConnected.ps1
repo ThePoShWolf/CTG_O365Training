@@ -5,6 +5,11 @@ Throw "This is a demo, not a script."
 #>
 #endregion
 
+#region prep
+function prompt(){}
+Clear-Host
+#endregion
+
 #region Prereqs
 
 #region required modules
