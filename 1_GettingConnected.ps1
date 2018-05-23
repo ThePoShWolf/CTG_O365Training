@@ -11,10 +11,10 @@ Clear-Host
 #endregion
 
 #region Prereqs
-
-#region required modules
 #Earlier versions of Windows: WMF 5.1
 https://www.microsoft.com/en-us/download/details.aspx?id=54616
+
+#region required modules
 
 #AzureAD
 Install-Module -Name AzureAD
