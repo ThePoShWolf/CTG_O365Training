@@ -34,13 +34,15 @@ Update-Module -Name MicrosoftTeams
 #Nothing needed
 #endregion
 
+#region executionpolicy
+
 <#
 Windows PowerShell needs to be configured to run signed scripts for Skype for Business Online,
 Exchange Online, and the Security & Compliance Center.
 #>
 
 Set-ExecutionPolicy RemoteSigned
-
+#endregion
 #endregion
 
 #region Getting Connected
