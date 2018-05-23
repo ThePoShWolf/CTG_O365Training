@@ -2,22 +2,19 @@
 Throw 'This is a demo, dummy!'
 #endregion
 
+#region prep
+Function Prompt(){}
+Clear-Host
+Remove-AzureADUser -ObjectID Rick.Sanchez@howell-it.com
+#endregion
+
 #region connection
 #Admin credentials for O365
 $credential = Get-Credential
 
 Connect-AzureAD -Credential $credential
 
-$exchangeSession = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri "https://outlook.office365.com/powershell-liveid/" -Credential $credential -Authentication "Basic" -AllowRedirection
-Import-PSSession $exchangeSession
-
 #endregion connection
-
-#region prep
-Function Prompt(){}
-Clear-Host
-Remove-AzureADUser -ObjectID Rick.Sanchez@howell-it.com
-#endregion
 
 #region create user
 
