@@ -19,8 +19,6 @@ Connect-AzureAD -Credential $credential
 #region create user
 
 #connect to AzureAD
-$credential = Get-Credential
-Connect-AzureAD -Credential $credential
 
 #create the password profile
 $PasswordProfile = New-Object -TypeName Microsoft.Open.AzureAD.Model.PasswordProfile
