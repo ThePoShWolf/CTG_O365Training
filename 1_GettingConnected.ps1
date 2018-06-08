@@ -41,13 +41,13 @@ Windows PowerShell needs to be configured to run signed scripts for Skype for Bu
 Exchange Online, and the Security & Compliance Center.
 #>
 
-Set-ExecutionPolicy RemoteSigned
+Set-ExecutionPolicy RemoteSigned -Confirm:$false
 #endregion
 #endregion
 
 #region Getting Connected
 
-$domainHost = "howlit"
+$domainHost = "office365courses"
 
 #Admin credentials for O365
 $credential = Get-Credential
