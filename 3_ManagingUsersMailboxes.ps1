@@ -4,7 +4,7 @@ Throw 'This is a demo, dummy!'
 
 
 #region Mailbox Protocols
-Get-CASMailbox -Identity rick.sanchez@howell-it.com
+Get-CASMailbox -Identity rick.sanchez@office365courses.com
 
 Set-CASMailbox -Identity -PopEnabled $false -ImapEnabled $false
 
@@ -12,10 +12,10 @@ Get-Mailbox | Set-CASMailbox -PopEnabled $false -ImapEnabled $false
 #endregion
 
 #region AutoReply
-Get-MailboxAutoReplyConfiguration -Identity rick.sanchez@howell-it.com
+Get-MailboxAutoReplyConfiguration -Identity rick.sanchez@office365courses.com
 
 $AutoReply = @{
-    'Identity' = 'Rick.Sanchez@howell-it.com'
+    'Identity' = 'Rick.Sanchez@office365courses.com'
     'AutoReplyState' = 'Scheduled'
     'StartTime' = '12/20/2018 17:00:00'
     'EndTime' = '01/02/19 08:00:00'
@@ -26,7 +26,7 @@ Set-MailboxAutoReplyConfiguration @AutoReply
 Get-MailboxAutoReplyConfiguration -Identity $AutoReply.Identity
 
 $AutoReply = @{
-    'Identity' = 'Rick.Sanchez@howell-it.com'
+    'Identity' = 'Rick.Sanchez@office365courses.com'
     'AutoReplyState' = 'Scheduled'
     'StartTime' = '12/20/2018 17:00:00'
     'EndTime' = '01/02/19 08:00:00'
@@ -49,7 +49,7 @@ $ResourceMailbox = @{
 New-Mailbox @ResourceMailbox
 
 $CalendarProcessing = @{
-    'Identity' = 'Garage@howell-it.com'
+    'Identity' = 'Garage@office365courses.com'
     'AllowConflicts' = $false
     'AllowRecurringMeetings' = $true
     'AutomateProcessing' = 'AutoAccept'
@@ -66,10 +66,10 @@ Get-CalendarProcessing $CalendarProcessing.Identity
 #region mobile devices
 
 #used to be: Get-ActiveSynceDevice
-Get-MobileDevice -Mailbox 'anthony@howell-it.com'
+Get-MobileDevice -Mailbox 'Rick.Sanchez@office365courses.com'
 
 $MobileDevice = @{
-    'Identity' = 'anthony@howell-it.com'
+    'Identity' = 'Rick.Sanchez@office365courses.com'
     'RequireDeviceEncryption' = $true
     'RequireStorageCardEncryption' = $true
     'PasswordEnabled' = $true
@@ -82,17 +82,17 @@ Set-MobileDevice @MobileDevice
 
 #region mailbox permissions
 $MailboxPermission = @{
-    'Identity' = 'Rick.Sanchez@howell-it.com'
-    'User' = 'Anthony@howell-it.com'
+    'Identity' = 'Rick.Sanchez@office365courses.com'
+    'User' = 'admin@office365courses.com'
     'AccessRights' = 'FullAccess'
     'Confirm' = $false
 }
 Add-MailboxPermission @MailboxPermission
 
-Get-MailboxPermission $MailboxPermission.Identity | Where-Object User -like "*anthony*"
+Get-MailboxPermission $MailboxPermission.Identity | Where-Object User -like "*admin*"
 
 Remove-MailboxPermission @MailboxPermission
 
-Get-MailboxPermission $MailboxPermission.Identity | Where-Object User -like "*anthony*"
+Get-MailboxPermission $MailboxPermission.Identity | Where-Object User -like "*admin*"
 
 #endregion

@@ -18,8 +18,6 @@ Connect-AzureAD -Credential $credential
 
 #region create user
 
-#connect to AzureAD
-
 #create the password profile
 $PasswordProfile = New-Object -TypeName Microsoft.Open.AzureAD.Model.PasswordProfile
 $PasswordProfile.Password = "bqQr5b9HT"
@@ -30,7 +28,7 @@ $PasswordProfile.ForceChangePasswordNextLogin = $true
 $user = @{
     'PasswordProfile' = $PasswordProfile
     'AccountEnabled' = $true
-    'UserPrincipalName' = 'Rick.Sanchez@howell-it.com'
+    'UserPrincipalName' = 'Rick.Sanchez@office365courses.com'
     'DisplayName' = 'Rick Sanchez'
     'MailNickName' = 'RickSanchez'
     'UsageLocation' = 'US'
@@ -54,7 +52,7 @@ $license = New-Object -TypeName Microsoft.Open.AzureAD.Model.AssignedLicense
 
 #retrieve the correct SKU ID
 Get-AzureADSubscribedSku
-$license.skuid = (Get-AzureADSubscribedSku | Where-Object SKUPartNumber -eq "SMB_Business_Premium").SkuId
+$license.skuid = (Get-AzureADSubscribedSku | Where-Object SKUPartNumber -eq "O365_Business_Premium").SkuId
 $license.SkuId
 $licenses.AddLicenses = $license
 
