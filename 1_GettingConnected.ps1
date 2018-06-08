@@ -32,17 +32,19 @@ Update-Module -Name MicrosoftTeams
 
 #Exchange
 #Nothing needed
+
 #endregion
 
 #region executionpolicy
 
 <#
-Windows PowerShell needs to be configured to run signed scripts for Skype for Business Online,
-Exchange Online, and the Security & Compliance Center.
+Windows PowerShell needs to be configured to run signed scripts for Skype
+for Business Online, Exchange Online, and the Security & Compliance Center.
 #>
 
 Set-ExecutionPolicy RemoteSigned -Confirm:$false
 #endregion
+
 #endregion
 
 #region Getting Connected
@@ -71,7 +73,7 @@ $SccSessionParams = @{
     'Authentication' = 'Basic'
     'AllowRedirection' = $true
 }
-$SccSession = New-PSSession
+$SccSession = New-PSSession @SCCSessionParams
 Import-PSSession $SccSession
 
 #Connect to Exchange Online
@@ -83,7 +85,7 @@ $ExchangeSessionParams = @{
     'AllowRedirection' = $true
 }
 $exchangeSession = New-PSSession  @ExchangeSessionParams
-Import-PSSession $exchangeSession
+Import-PSSession $exchangeSession -AllowClobber
 
 #Connect to Skype for Business
 Import-Module SkypeOnlineConnector
