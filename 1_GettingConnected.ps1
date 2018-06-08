@@ -51,6 +51,7 @@ $domainHost = "office365courses"
 
 #Admin credentials for O365
 $credential = Get-Credential
+$credential.Password.MakeReadOnly()
 
 #Connect to AzureAD using the $credential
 Connect-AzureAD -Credential $credential
@@ -63,11 +64,25 @@ Import-Module Microsoft.Online.SharePoint.PowerShell -DisableNameChecking
 Connect-SPOService -Url https://$domainHost-admin.sharepoint.com -credential $credential
 
 #Connect to the Security and Compliance center
-$SccSession = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://ps.compliance.protection.outlook.com/powershell-liveid/ -Credential $credential -Authentication "Basic" -AllowRedirection
+$SccSessionParams = @{
+    'ConfigurationName' = 'Microsoft.Exchange'
+    'ConnectionUri' = 'https://ps.compliance.protection.outlook.com/powershell-liveid/'
+    'Credential' = $credential
+    'Authentication' = 'Basic'
+    'AllowRedirection' = $true
+}
+$SccSession = New-PSSession
 Import-PSSession $SccSession
 
 #Connect to Exchange Online
-$exchangeSession = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri "https://outlook.office365.com/powershell-liveid/" -Credential $credential -Authentication "Basic" -AllowRedirection
+$ExchangeSessionParams = @{
+    'ConfigurationName' = 'Microsoft.Exchange'
+    'ConnectionUri' = "https://outlook.office365.com/powershell-liveid/"
+    'Credential' = $credential
+    'Authentication' = 'Basic'
+    'AllowRedirection' = $true
+}
+$exchangeSession = New-PSSession  @ExchangeSessionParams
 Import-PSSession $exchangeSession
 
 #Connect to Skype for Business
