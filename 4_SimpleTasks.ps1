@@ -68,4 +68,3 @@ Add-AzureADGroupMember -ObjectId $ULA.ObjectID -RefObjectId $Rick.ObjectId
 Remove-AzureADGroupMember -ObjectId $ULA.ObjectId -MemberId $Rick.ObjectId
 
 #endregion
-
