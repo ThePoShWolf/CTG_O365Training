@@ -3,9 +3,9 @@ Throw 'This is a demo, dummy!'
 #endregion
 
 #region prep
-Get-Mailbox | Set-CASMailbox -PopEnabled $true -ImapEnabled $true
-Set-MailboxAutoReplyConfiguration -Identity rick.sanchez@office365courses.com -ExternalMessage '' -InternalMessage ''
-Remove-Mailbox 'Garage@office365courses.com'
+Get-Mailbox -Identity rick.sanchez@office365courses.com | Set-CASMailbox -PopEnabled $true -ImapEnabled $true
+Set-MailboxAutoReplyConfiguration -Identity rick.sanchez@office365courses.com -ExternalMessage '' -InternalMessage '' -AutoReplyState Disabled
+Remove-Mailbox 'Garage@office365courses.com' -Confirm:$false
 Function Prompt(){}
 Clear-Host
 #endregion
@@ -28,6 +28,8 @@ Import-PSSession $exchangeSession -AllowClobber
 #endregion
 
 #region Mailbox Protocols
+Get-Mailbox -Identity rick.sanchez@office365courses.com
+
 Get-CASMailbox -Identity rick.sanchez@office365courses.com
 
 Set-CASMailbox -Identity rick.sanchez@office365courses.com -PopEnabled $false -ImapEnabled $false
@@ -86,24 +88,7 @@ $CalendarProcessing = @{
 }
 Set-CalendarProcessing @CalendarProcessing
 
-Get-CalendarProcessing 'Garage@office365courses.com'
-
-#endregion
-
-#region mobile devices
-
-#used to be: Get-ActiveSynceDevice
-Get-MobileDevice -Mailbox 'Rick.Sanchez@office365courses.com'
-
-$MobileDevice = @{
-    'Identity' = 'Rick.Sanchez@office365courses.com'
-    'RequireDeviceEncryption' = $true
-    'RequireStorageCardEncryption' = $true
-    'PasswordEnabled' = $true
-    'MinPasswordLength' = 8
-    'MaxPasswordFailedAttempts' = 5
-}
-Set-MobileDevice @MobileDevice
+Get-CalendarProcessing 'Garage@office365courses.com' | Format-List
 
 #endregion
 
@@ -116,7 +101,6 @@ $MailboxPermission = @{
     'Identity' = 'Rick.Sanchez@office365courses.com'
     'User' = 'admin@office365courses.com'
     'AccessRights' = 'FullAccess'
-    'Confirm' = $false
 }
 Add-MailboxPermission @MailboxPermission
 
