@@ -4,7 +4,6 @@ Throw 'This is a demo, dummy!'
 
 #region prep
 Remove-AzureADGroup -ObjectId (get-azureadgroup -SearchString 'underground').objectid
-Remove-AzureADGroup -ObjectId (get-azureadgroup -SearchString 'smartest beings').objectid
 Function Prompt(){}
 Clear-Host
 #endregion
