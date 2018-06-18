@@ -15,16 +15,18 @@ Connect-AzureAD -Credential $credential
 #endregion
 
 #region Reset a user password
+$password = ConvertTo-SecureString '@wes0me!' -AsPlainText -Force
+
 $passwordChange = @{
     'ObjectId' = 'rick.sanchez@office365courses.com' 
-    'Password' = '@wes0me!'
-    'ForceChangePasswordNextLogin' = $false
+    'Password' = $password
+    'ForceChangePasswordNextLogin' = $true
     'EnforceChangePasswordPolicy' = $true
 }
 Set-AzureADUserPassword @passwordChange
 
 #no splat
-Set-AzureADUserPassword -ObjectId 'rick.sanchez@office365courses.com' -Password '@wes0me!' -ForceChangePasswordNextLogin $false -EnforceChangePasswordPolicy $true
+Set-AzureADUserPassword -ObjectId 'rick.sanchez@office365courses.com' -Password $password -ForceChangePasswordNextLogin $false -EnforceChangePasswordPolicy $true
 
 #endregion
 
@@ -42,21 +44,12 @@ New-AzureADGroup @SecurityEnabled
 #No Splat
 New-AzureADGroup -DisplayName 'Underground Lair Admins' -SecurityEnabled $true -MailEnabled $false -MailNickName 'null'
 
-#mail enabled group
-$MailEnabled = @{
-    'DisplayName' = 'Smartest Beings'
-    'SecurityEnabled' = $false
-    'MailEnabled' = $true
-    'MailNickName' = 'SmartestBeings'
-}
-New-AzureADGroup @MailEnabled
-
-#No Splat
-New-AzureADGroup -DisplayName 'Smartest Beings' -SecurityEnabled $false -MailEnabled $true -MailNickName 'SmartestBeings'
+Get-AzureADGroup -Filter "displayname eq 'Underground Lair Admins'"
 
 #endregion 
 
 #region Add and removing user from/to groups
+
 #retrieve appropriate ObjectIds
 $ULA = Get-AzureADGroup -Filter "DisplayName eq 'Underground Lair Admins'"
 $Rick = Get-AzureADUser -ObjectId 'Rick.Sanchez@office365courses.com'
@@ -64,7 +57,13 @@ $Rick = Get-AzureADUser -ObjectId 'Rick.Sanchez@office365courses.com'
 #Add to a group
 Add-AzureADGroupMember -ObjectId $ULA.ObjectID -RefObjectId $Rick.ObjectId
 
+#Look at membership
+Get-AzureADGroupMember -ObjectId $ULA.ObjectId
+
 #Remove from the same group
 Remove-AzureADGroupMember -ObjectId $ULA.ObjectId -MemberId $Rick.ObjectId
+
+#Look at membership
+Get-AzureADGroupMember -ObjectId $ULA.ObjectId
 
 #endregion
